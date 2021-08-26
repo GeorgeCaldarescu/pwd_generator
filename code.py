@@ -5,13 +5,14 @@ import random
 
 alphabet = list(string.ascii_letters)
 numbers = list(string.digits)
-specials = list("!@#$%^&*(),./_-:;")  # create the list with the special characters. pay attention because sometimes some characters are not allowd
+specials = list("!@#$%^&*()")  # create the list with the special characters. pay attention because sometimes some characters are not allowed
+characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
 
 # create the function
 
 def generate():
     # define the lenght by input
-    lenght = int(input("Lenght of the password": ))
+    length = int(input("Lenght of the password:" ))
 
     # define how many characters of each class you want
     alpha_count = int(input("How many letter you want: "))
@@ -20,7 +21,7 @@ def generate():
 
     characters_count = alpha_count + numbers_count + specials_count
 
-    if characters_count > lenght:
+    if characters_count > length:
         print("The total of characters is bigger than the lenght you choose for the password")
         return
 
@@ -39,4 +40,15 @@ def generate():
         password.append(random.choice(specials))
 
     # create a if statement to pick some random characters if the password lenght is less the lenght choosed at the beginning to make it the same
+    if characters_count < length:
+        random.shuffle(characters)
+        for i in range(length - characters_count):
+            password.append(random.choice(characters))
     
+    # shuffle the characters
+    random.shuffle(password)
+
+    # convert the list to string
+    print("".join(password))
+
+generate()
